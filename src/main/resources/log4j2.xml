@@ -1,0 +1,47 @@
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} requestId: %X{requestId} - %msg%n"></PatternLayout>
+        </Console>
+        <File name="File" fileName="/var/log/channels-file-center/channels-file-center.log" ignoreExceptions="false">
+            <PatternLayout pattern="[%level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} requestId: %X{requestId} - %msg%n"></PatternLayout>
+        </File>
+
+        <File name="FileException" fileName="/var/log/channels-file-center/channels-file-center-exception.log" ignoreExceptions="false">
+            <PatternLayout pattern="[%level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} requestId: %X{requestId} - %msg%n"></PatternLayout>
+        </File>
+<!--
+               <RollingFile name="File" fileName="/var/log/channels-file-center/channels-file-center.log"
+                            filePattern="/var/log/channels-file-center/channels-file-center-%i.log">
+                   <PatternLayout pattern="[%level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} requestId: %X{requestId} - %msg%n"></PatternLayout>
+                   <Policies>
+                       <SizeBasedTriggeringPolicy size="500MB" />
+                   </Policies>
+                   <DefaultRolloverStrategy max="20"/>
+               </RollingFile>
+
+               <RollingFile name="FileException" fileName="/var/log/channels-file-center/channels-file-center-exception.log"
+                            filePattern="/var/log/channels-file-center/channels-file-center-exception-%i.log">
+                   <PatternLayout pattern="[%level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} requestId: %X{requestId} - %msg%n"></PatternLayout>
+                   <Policies>
+                       <SizeBasedTriggeringPolicy size="500MB" />
+                   </Policies>
+                   <DefaultRolloverStrategy max="20"/>
+               </RollingFile>-->
+    </Appenders>
+    <Loggers>
+        <Root level="warn">
+            <AppenderRef ref="FileException" level="warn"></AppenderRef>
+            <AppenderRef ref="File"></AppenderRef>
+            <AppenderRef ref="STDOUT"></AppenderRef>
+        </Root>
+
+        <Logger name="com.paytm.channelsfilecenter" level="debug" additivity="false">
+            <AppenderRef ref="File"></AppenderRef>
+            <AppenderRef ref="FileException" level="debug"></AppenderRef>
+            <AppenderRef ref="STDOUT"></AppenderRef>
+        </Logger>
+
+
+    </Loggers>
+</Configuration>
